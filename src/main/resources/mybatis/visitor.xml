@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "dev.mvc.visitor.VisitorDAOInter">
+  <select id="checkID" resultType="int" parameterType="String">
+		SELECT COUNT(id) as cnt
+		FROM visitor
+		WHERE id=#{id}
+  </select>
+  
+  <insert id="create" parameterType="dev.mvc.visitor.VisitorVO">
+    INSERT INTO visitor(visitorno, id, passwd, age, sex, mname, tel, zipcode, address1, address2, mdate, grade)
+    VALUES (visitor_seq.nextval, #{id},  #{passwd}, #{age}, #{sex}, #{mname}, #{tel}, #{zipcode}, 
+                 #{address1}, #{address2}, sysdate, #{grade})
+  </insert>  
+  
+  <select id="list" resultType="dev.mvc.visitor.VisitorVO">
+  SELECT visitorno, id, passwd, age, sex, mname, tel, zipcode, address1, address2, mdate, grade
+	FROM visitor
+	ORDER BY grade ASC, id ASC
+  </select>
+  
+  <select id="read" resultType="dev.mvc.visitor.VisitorVO">
+  SELECT visitorno, id, passwd, age, sex, mname, tel, zipcode, address1, address2, mdate, grade
+	FROM visitor
+	WHERE visitorno = #{visitorno}
+  </select>
+  
+  <select id="readbyId" resultType="dev.mvc.visitor.VisitorVO">
+  SELECT visitorno, id, passwd, age, sex, mname, tel, zipcode, address1, address2, mdate, grade
+	FROM visitor
+	WHERE id = #{id}
+  </select>
+  
+  <update id="update" parameterType="dev.mvc.visitor.VisitorVO">
+    UPDATE visitor 
+    SET id=#{id}, mname=#{mname}, age=#{age}, sex=#{sex}, tel=#{tel}, zipcode=#{zipcode}, address1=#{address1}, address2=#{address2}
+    WHERE visitorno=#{visitorno}
+  </update>  
+  
+  <delete id="delete" parameterType="int">
+  DELETE FROM visitor
+	WHERE visitorno=#{visitorno}
+  </delete>
+  
+  <!-- 로그인 -->
+  <select id="login" resultType="int" parameterType="HashMap">
+    SELECT COUNT(visitorno) as cnt
+    FROM visitor
+    WHERE id=#{id} AND passwd=#{passwd}
+  </select>
+  
+  <!--  현재 패스워드 검사 -->
+  <select id="passwd_check" parameterType="HashMap" resultType="int">
+    SELECT COUNT(visitorno) as cnt
+    FROM visitor
+    WHERE visitorno=#{visitorno} AND passwd=#{passwd}
+  </select>
+  
+  <!-- 패스워드 변경 -->
+  <update id="passwd_update" parameterType="HashMap">
+    UPDATE visitor
+    SET passwd=#{passwd}
+    WHERE visitorno=#{visitorno}
+  </update>
+
+</mapper>

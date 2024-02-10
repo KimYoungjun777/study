@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  자식 XML 태그들은  dev.mvc.cate.CateDAOInter.java interface와 연결됨.-->
+<mapper namespace="dev.mvc.kind.KindDAOInter">
+<!--  return: 등록한 레코드 갯수를 1을 리턴, parameterType: 전달받는 데이터 -->
+  <insert id="create" parameterType="dev.mvc.kind.KindVO">  
+    INSERT INTO KIND(kindno, title, cnt, rdate) VALUES(kind_seq.nextval, #{title}, 0, sysdate)
+  </insert>
+  
+  <!-- 전체 조회 -->
+<!--   <select id="list_all" resultType="dev.mvc.kind.KindVO">
+     SELECT kindno, title, cnt, rdate FROM kind ORDER BY kindno ASC
+  </select> -->
+  
+  <!-- 읽기  -->
+  <select id="read" resultType="dev.mvc.kind.KindVO" parameterType="int">
+    SELECT kindno, title, cnt, rdate FROM kind WHERE kindno=#{kindno}
+  </select>
+  
+  <!-- return: 수정한 레코드 갯수 리턴, parameterType: 수정할 레코드 정보 -->
+  <update id="update" parameterType="dev.mvc.kind.KindVO">
+    UPDATE kind SET title=#{title}, cnt=#{cnt} 
+    WHERE kindno=#{kindno}
+  </update>
+  
+  <!--  출력 우선 순위 적용 -->
+<!--   <select id="list_all" resultType="dev.mvc.kind.KindVO">
+    SELECT kindno, title, cnt, rdate, seqno FROM kind ORDER BY seqno ASC
+  </select> -->
+  
+  <!-- 출력 모드 적용  -->
+  <select id="list_all" resultType="dev.mvc.kind.KindVO">
+    SELECT kindno, title, cnt, rdate, seqno, visible FROM kind ORDER BY seqno ASC
+  </select> 
+  
+     <!-- 우선 순위 높임 -->
+   <update id="update_seqno_up" parameterType="int">
+    UPDATE kind SET seqno= seqno - 1 WHERE kindno=#{kindno}
+   </update>
+   
+   <!-- 우선 순위 낮춤 -->    
+   <update id="update_seqno_down" parameterType="int">
+    UPDATE kind SET seqno= seqno + 1 WHERE kindno=#{kindno}
+   </update>     
+   
+   <!-- 종류 공개 설정 -->
+   <update id="update_visible_y" parameterType="int">
+      UPDATE kind SET visible = 'Y' WHERE kindno=#{kindno}
+   </update>
+   
+   <!-- 종류 비공개 설정 -->
+   <update id="update_visible_n" parameterType="int">
+      UPDATE kind SET visible = 'N' WHERE kindno=#{kindno}
+   </update>
+  
+  <!-- 비회원/회원 SELECT LIST -->
+   <select id="list_all_y" resultType="dev.mvc.kind.KindVO">
+    SELECT kindno, title, cnt, rdate, seqno, visible FROM kind WHERE visible = 'Y' ORDER BY seqno ASC
+  </select>
+  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM kind WHERE kindno=#{kindno}
+  </delete>
+  
+
+</mapper>
