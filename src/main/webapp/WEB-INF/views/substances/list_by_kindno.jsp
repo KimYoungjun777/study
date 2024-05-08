@@ -11,6 +11,7 @@
 <c:set var="youtube" value="${substancesVO.youtube }"/>
 <c:set var="map" value="${substancesVO.map }"/>
 <c:set var="word" value="${substancesVO.word }"/>
+<c:set var="address" value="${substancesVO.address }"/>
 <c:set var="file1" value="${substancesVO.file1 }"/>
 <c:set var="size1_label" value="${substancesVO.size1_label }"/>
 
@@ -40,7 +41,7 @@
 
   <ASIDE class="aside_right">
     <%-- 관리자로 로그인해야 메뉴가 출력됨 --%>
-    <c:if test="${sessionScope.grammer_id != null }">
+    <c:if test="${sessionScope.id != null or sessionScope.grade == 1}">
       <A href="./create.do?kindno=${kindVO.kindno }">등록</A>
       <span class='menu_divide' >│</span>
     </c:if>
@@ -120,10 +121,13 @@
             (${substancesVO.rdate.substring(0,16) })
             </td>
               <td class="td_bs" style="vertical-align: middle;">
+              <c:if test="${sessionScope.visitorno == substancesVO.visitorno or sessionScope.grade == 1}">
                 <a href="./map.do?substancesno=${substancesno }&kindno=${param.kindno}" title="지도"><img src="/substances/images/map.jpg" class="icon"></a>
                 <a href="./youtube.do?substancesno=${substancesno }&kindno=${param.kindno}" title="유튜브"><img src="/substances/images/youtube.jpg" class="icon"></a>
                 <a href="./delete.do?substancesno=${substancesno }&kindno=${param.kindno}&now_page=${param.now_page == null ? 1 : param.now_page }" title="삭제"><img src="/substances/images/delete.jpg" class="icon"></a>
+              </c:if>
               </td>
+              
           </tr>
         </c:forEach>
       </tbody>

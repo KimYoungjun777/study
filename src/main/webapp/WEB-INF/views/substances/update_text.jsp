@@ -11,6 +11,8 @@
 <c:set var="youtube" value="${substancesVO.youtube }"/>
 <c:set var="map" value="${substancesVO.map }"/>
 <c:set var="word" value="${substancesVO.word }"/>
+<c:set var="address" value="${substancesVO.address }"/>
+<c:set var="price" value="${substancesVO.price }"/>
 <c:set var="file1" value="${substancesVO.file1 }"/>
 <c:set var="size1_label" value="${substancesVO.size1_label }"/>
 
@@ -75,7 +77,7 @@
     
     <div>
        <label>제목</label>
-       <input type='text' name='title' value='${title }' required="required" 
+       <input type='text' name='title' value='${substancesVO.title }' required="required" 
                  autofocus="autofocus" class="form-control" style='width: 100%;'>
     </div>
     <div>
@@ -87,9 +89,15 @@
        <input type='text' name='word' value="${word }" required="required" 
                  class="form-control" style='width: 100%;'>
     </div>   
+    
     <div>
-       <label>평점</label>
-       <input type='number' min ="0" max = "10" name='review' class="form-control form-sm" style='width: 10%;'name='review' >
+       <label>거래 장소</label>
+       <input type='text' class="form-control form-sm" value=${address } style='width: 30%;'name='address' >
+    </div>   
+    
+    <div>
+       <label>거래 가격</label>
+       <input type='text' class="form-control form-sm" value=${price } style='width: 30%;'name='price' >
     </div>   
     
     <div>

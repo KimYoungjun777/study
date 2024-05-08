@@ -57,6 +57,12 @@ WHERE id='user1';
 INSERT INTO visitor(visitorno, id, passwd, age, sex, mname, tel, zipcode, address1, address2, mdate, grade)
 VALUES (visitor_seq.nextval, 'user1@gmail.com', '1234', 14, '남자', '왕눈이', '000-0000-0000', '12345', '서울시 종로구', '관철동', sysdate, 15);
 
+INSERT INTO visitor(visitorno, id, passwd, age, sex, mname, tel, zipcode, address1, address2, mdate, grade)
+VALUES (visitor_seq.nextval, 'manager1', 'manager1', 20, '남자', '게시판관리자', '000-0000-0000', '12345', '서울시 종로구', '관철동', sysdate, 1);
+
+INSERT INTO visitor(visitorno, id, passwd, age, sex, mname, tel, zipcode, address1, address2, mdate, grade)
+VALUES (visitor_seq.nextval, 'manager2', 'manager2', 20, '남자', '댓글관리자', '000-0000-0000', '12345', '서울시 종로구', '관철동', sysdate, 2);
+
 SELECT * FROM visitor;
 
 -- 목록

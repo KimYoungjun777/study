@@ -1,4 +1,4 @@
-package dev.mvc.order_v1sbm3c;
+package dev.mvc.transaction;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

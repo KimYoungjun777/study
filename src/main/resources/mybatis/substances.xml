@@ -6,27 +6,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="dev.mvc.substances.SubstancesDAOInter">
   <insert id="create" parameterType="dev.mvc.substances.SubstancesVO">
-    INSERT INTO substances(substancesno, grammerno, kindno, title, substance, cnt, replycnt, passwd, 
-                     word, review, file1, file1saved, thumb1, size1, rdate)
-    VALUES(substances_seq.nextval, #{grammerno}, #{kindno}, #{title}, #{substance},  #{cnt}, #{replycnt}, #{passwd},
-       #{word}, #{review}, #{file1}, #{file1saved}, #{thumb1}, #{size1}, sysdate)
+    INSERT INTO substances(substancesno, visitorno, kindno, title, substance, cnt, replycnt, passwd, 
+                     word, address, file1, file1saved, thumb1, size1, rdate, price)
+    VALUES(substances_seq.nextval, #{visitorno}, #{kindno}, #{title}, #{substance},  #{cnt}, #{replycnt}, #{passwd},
+       #{word}, #{address}, #{file1}, #{file1saved}, #{thumb1}, #{size1}, sysdate, #{price})
   </insert> 
 
   <select id="list_all" parameterType="dev.mvc.substances.SubstancesVO">
-    SELECT substancesno, grammerno, kindno, title, substance, recom, cnt, replycnt, passwd, word, review, rdate, file1, file1saved, thumb1, size1
+    SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1, price
 		FROM substances
 		ORDER BY substancesno DESC
   </select>
   
   <select id="list_by_kindno" resultType="dev.mvc.substances.SubstancesVO" parameterType="int">
-     SELECT substancesno, grammerno, kindno, title, substance, recom, cnt, replycnt, passwd, word, review, rdate, file1, file1saved, thumb1, size1
+     SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1, price
 			FROM substances
 			WHERE kindno=#{kindno}
 			ORDER BY substancesno ASC
   </select>
   
   <select id="read" resultType="dev.mvc.substances.SubstancesVO" parameterType="int">
-     SELECT substancesno, grammerno, kindno, title, substance, recom, cnt, replycnt, passwd, word, review, rdate, file1, file1saved, thumb1, size1, map, youtube
+     SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1, map, youtube, price
       FROM substances
       WHERE substancesno=#{substancesno}
   </select>
@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <!-- 카테고리별 검색 목록 -->
   <select id="list_by_kindno_search" resultType="dev.mvc.substances.SubstancesVO" parameterType="HashMap">
-    SELECT substancesno, grammerno, kindno, title, substance, recom, cnt, replycnt, passwd, word, review, rdate, file1, file1saved, thumb1, size1, map, youtube
+    SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1, map, youtube
       FROM substances
     <choose>
       <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
@@ -67,18 +67,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
         WHERE kindno=#{kindno} AND (UPPER(title) LIKE '%' || UPPER(#{word}) || '%' 
                                                   OR UPPER(substance) LIKE '%' || UPPER(#{word}) || '%' 
-                                                  OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
+                                                  OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%'
+                                                  OR UPPER(address) LIKE '%' || UPPER(#{word}) || '%')
       </otherwise>
     </choose>
   </select>   
   
     <!-- 종류별 검색 + 페이징 목록 -->
   <select id="list_by_kindno_search_paging" resultType="dev.mvc.substances.SubstancesVO" parameterType="dev.mvc.substances.SubstancesVO">
-   SELECT substancesno, grammerno, kindno, title, substance, recom, cnt, replycnt, passwd, word, review, rdate, file1, file1saved, thumb1, size1, map, youtube, r
+   SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1, map, youtube, r
    FROM (
-              SELECT substancesno, grammerno, kindno, title, substance, recom, cnt, replycnt, passwd, word, review, rdate, file1, file1saved, thumb1, size1, map, youtube, rownum as r
+              SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1, map, youtube, rownum as r
               FROM (
-                        SELECT substancesno, grammerno, kindno, title, substance, recom, cnt, replycnt, passwd, word, review, rdate, file1, file1saved, thumb1, size1, map, youtube
+                        SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1, map, youtube
                         FROM substances
                         <choose>
                           <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
@@ -87,7 +88,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                           <otherwise>
                             WHERE kindno=#{kindno} AND (UPPER(title) LIKE '%' || UPPER(#{word}) || '%' 
                                                               OR UPPER(substance) LIKE '%' || UPPER(#{word}) || '%' 
-                                                              OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
+                                                              OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%'
+                                                              OR UPPER(address) LIKE '%' || UPPER(#{word}) || '%')
                           </otherwise>
                         </choose>
                         ORDER BY substancesno DESC
@@ -110,7 +112,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 글 수정 -->
   <update id="update_text" parameterType="dev.mvc.substances.SubstancesVO">
   UPDATE substances
-	SET title=#{title}, substance=#{substance},  word=#{word}, review=#{review}
+	SET title=#{title}, substance=#{substance},  word=#{word}, address=#{address}, price=#{price}
 	WHERE substancesno = #{substancesno}
   </update>
   

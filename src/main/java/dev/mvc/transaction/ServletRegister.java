@@ -1,4 +1,4 @@
-package dev.mvc.order_v1sbm3c;
+package dev.mvc.transaction;
 
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;

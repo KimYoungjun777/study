@@ -31,8 +31,8 @@ public class SubstancesVO {
 	
 	 /** 본문 번호 */
     private int substancesno;
-    /** 개발자 번호 */
-    private int grammerno;
+    /** 방문자 번호 */
+    private int visitorno;
     /** 종류 번호 */
     private int kindno;
     /** 제목 */
@@ -49,8 +49,8 @@ public class SubstancesVO {
     private String passwd = "";
     /** 검색어 */
     private String word = "";
-    /** 평점 */
-    private int review = 0;
+    /** 주소 */
+    private String address = "";
     /** 등록 날짜 */
     private String rdate = "";
     /** 지도 */
@@ -104,12 +104,7 @@ public class SubstancesVO {
 	public void setSubstancesno(int substancesno) {
 		this.substancesno = substancesno;
 	}
-	public int getGrammerno() {
-		return grammerno;
-	}
-	public void setGrammerno(int grammerno) {
-		this.grammerno = grammerno;
-	}
+
 	public int getKindno() {
 		return kindno;
 	}
@@ -159,11 +154,17 @@ public class SubstancesVO {
 		this.word = word;
 	}
 	
-	public int getReview() {
-    return review;
+  public int getVisitorno() {
+    return visitorno;
   }
-  public void setReview(int review) {
-    this.review = review;
+  public void setVisitorno(int visitorno) {
+    this.visitorno = visitorno;
+  }
+  public String getAddress() {
+    return address;
+  }
+  public void setAddress(String address) {
+    this.address = address;
   }
   public String getRdate() {
 		return rdate;
@@ -270,7 +271,7 @@ public class SubstancesVO {
 	
 	@Override
 	public String toString() {
-		return "SubstancesVO [substancesno=" + substancesno + ", grammerno=" + grammerno + ", kindno=" + kindno
+		return "SubstancesVO [substancesno=" + substancesno + ", visitorno=" + visitorno + ", kindno=" + kindno
 				+ ", title=" + title + ", substance=" + substance + ", recom=" + recom + ", cnt=" + cnt + ", replycnt="
 				+ replycnt + ", passwd=" + passwd + ", word=" + word + ", rdate=" + rdate + ", map=" + map
 				+ ", youtube=" + youtube + ", file1MF=" + file1MF + ", size1_label=" + size1_label + ", file1=" + file1

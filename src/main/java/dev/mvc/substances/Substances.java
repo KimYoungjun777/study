@@ -13,11 +13,11 @@ public class Substances {
     public static synchronized String getUploadDir() {
         String path = "";
         if (File.separator.equals("\\")) { 
-            path="C:\\kd\\deploy\\order_v4sbm3c\\substances\\storage\\";
+            path="C:\\kd\\deploy\\transaction\\substances\\storage\\";
 
             
         } else {
-            path = "/home/ubuntu/deploy/order_v4sbm3c/substances/storage/";
+            path = "/home/ubuntu/deploy/transaction/substances/storage/";
         }
         
         return path;

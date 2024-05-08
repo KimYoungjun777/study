@@ -89,9 +89,11 @@
             (${substancesVO.rdate.substring(0,16) })
             </td>
               <td class="td_bs" style="vertical-align: middle;">
+              <c:if test="${sessionScope.visitorno == substancesVO.visitorno or sessionScope.grade == 1}">
                 <a href="./map.do?substancesno=${substancesno }&kindno=${param.kindno}" title="위치"><img src="/substances/images/map.jpg" class="icon"></a>
                 <a href="./youtube.do?substancesno=${substancesno }&kindno=${param.kindno}" title="유튜브"><img src="/substances/images/youtube.jpg" class="icon"></a>
                 <a href="./delete.do?substancesno=${substancesno }&kindno=${param.kindno}&now_page=${param.now_page == null ? 1 : param.now_page }" title="삭제"><img src="/substances/images/delete.jpg" class="icon"></a>
+              </c:if>
               </td>
           </tr>
           </c:if>

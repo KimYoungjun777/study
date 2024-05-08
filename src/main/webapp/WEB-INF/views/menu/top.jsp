@@ -38,13 +38,24 @@
      	<div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
       
-        <c:forEach var="kindVO" items="${list_top }">
+<%--       <c:forEach var="kindVO" items="${list_top }">
          <c:set var="kindno" value="${kindVO.kindno }" />
          <c:set var="title" value="${kindVO.title }" />
          <li class="nav-item">
           <a href="/substances/list_by_kindno.do?kindno=${kindVO.kindno }&now_page=1" class= "nav-link top_menu_link">${kindVO.title }</a>
          </li>
-        </c:forEach>
+        </c:forEach> --%>	
+        
+        <li class="nav-item dropdown"> <%-- 게시판 목록 --%>
+              <a class="nav-link top_menu_link dropdown-toggle" data-bs-toggle="dropdown" href="#">게시판</a>
+              <div class="dropdown-menu">
+                <c:forEach var="kindVO" items="${list_top }">
+                    <c:set var="kindno" value="${kindVO.kindno }" />
+                    <c:set var="title" value="${kindVO.title }" />
+                    <a class="dropdown-item" href="/substances/list_by_kindno.do?kindno=${kindno }&now_page=1">${title }</a> 
+                </c:forEach>
+              </div>
+            </li>
         
         <li class="nav-item">
           <a href="/substances/list_all.do" class="nav-link top_menu_link">전체글 목록</a>
@@ -82,7 +93,6 @@
         	 <li class="nav-item dropdown"> <%-- 관리자 서브 메뉴 --%>
              <a class="nav-link top_menu_link dropdown-toggle" data-bs-toggle="dropdown" href="#">개발자</a>
              <div class="dropdown-menu">
-             		<a href="/substances/list_by_kindno.do?kindno=5&now_page=1" class= "dropdown-item">태니의 낙서</a>
 			          <a href="/substances/list_all_gallery.do" class="dropdown-item">갤러리</a>
 			          <a href="/kind/list_all.do" class="dropdown-item">종류 전체 목록</a>
 			          <a href="/visitor/list.do" class="dropdown-item">회원 목록</a>

@@ -77,8 +77,13 @@
        <input type='file' class="form-control" name='file1MF' id='file1MF' value='' placeholder="파일 선택">
     </div>   
     <div>
-       <label>평점</label>
-       <input type='number' min ="0" max = "10" name='review' class="form-control form-sm" style='width: 10%;'>
+       <label>거래 장소</label>
+       <input type='text' name='address' class="form-control form-sm" style='width: 30%;'>
+    </div>   
+    
+    <div>
+       <label>거래 가격</label>
+       <input type='text' name='price'  class="form-control form-sm" style='width: 30%;'>
     </div>   
     <div>
        <label>패스워드</label>

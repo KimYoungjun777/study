@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dev.mvc.kind.KindVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
+import dev.mvc.visitor.VisitorProcInter;
 import dev.mvc.grammer.GrammerProcInter;
 import dev.mvc.kind.KindProcInter;
 
@@ -30,6 +31,10 @@ public class SubstancesCont {
 	@Qualifier("dev.mvc.grammer.GrammerProc")
 	private GrammerProcInter grammerProc;
 	
+	 @Autowired
+	  @Qualifier("dev.mvc.visitor.VisitorProc")
+	  private VisitorProcInter visitorProc;
+	 
 	@Autowired
 	@Qualifier("dev.mvc.substances.SubstancesProc")
 	private SubstancesProcInter substancesProc;
@@ -61,7 +66,7 @@ public class SubstancesCont {
 	  public ModelAndView create(HttpServletRequest request, HttpSession session, SubstancesVO substancesVO) {
 	    ModelAndView mav = new ModelAndView();
 	    
-	    if (grammerProc.isGrammer(session)) { // 관리자로 로그인한경우
+	    if (visitorProc.isVisitor(session)) { // 관리자로 로그인한경우
 	      // ------------------------------------------------------------------------------
 	      // 파일 전송 코드 시작
 	      // ------------------------------------------------------------------------------
@@ -102,8 +107,8 @@ public class SubstancesCont {
 	      // ------------------------------------------------------------------------------
 	      
 	      // Call By Reference: 메모리 공유, Hashcode 전달
-	      int grammerno = (int)session.getAttribute("grammerno"); // adminno FK
-	      substancesVO.setGrammerno(grammerno);
+	      int visitorno = (int)session.getAttribute("visitorno"); // adminno FK
+	      substancesVO.setVisitorno(visitorno);
 	      int cnt = this.substancesProc.create(substancesVO); 
 	      
 	      // ------------------------------------------------------------------------------
@@ -129,7 +134,7 @@ public class SubstancesCont {
 	      mav.setViewName("redirect:/substances/msg.do"); // POST방식 GET방식으로 바꾸는 작업.
 
 	    } else {
-	      mav.addObject("url", "/grammer/login_need"); // /WEB-INF/views/admin/login_need.jsp
+	      mav.addObject("url", "/visitor/login_need"); // /WEB-INF/views/admin/login_need.jsp
 	      mav.setViewName("redirect:/substances/msg.do"); 
 	    }
 	    
@@ -160,26 +165,22 @@ public class SubstancesCont {
 	    ArrayList<SubstancesVO> list = this.substancesProc.list_all();
 	    
 	    
-	    if(this.grammerProc.isGrammer(session) == true) {
-		    mav.setViewName("/substances/list_all"); // /WEB-INF/views/cate/list_all.jsp
+		  mav.setViewName("/substances/list_all"); // /WEB-INF/views/cate/list_all.jsp
 		   
-		    for(SubstancesVO substancesVO:list) {
-		    	String title = substancesVO.getTitle();
-		    	String substance = substancesVO.getSubstance();
-		    	int kindno = substancesVO.getKindno();
+		  for(SubstancesVO substancesVO:list) {
+		   String title = substancesVO.getTitle();
+		   String substance = substancesVO.getSubstance();
+		   int kindno = substancesVO.getKindno();
 		    	
-		    	title = Tool.convertChar(title);
-		    	substance = Tool.convertChar(substance);
+		   title = Tool.convertChar(title);
+		   substance = Tool.convertChar(substance);
 		    	
-		    	substancesVO.setTitle(title);
-		    	substancesVO.setSubstance(substance);
-          substancesVO.setKindno(kindno);
-		    }
-		    mav.addObject("list", list);
+		   substancesVO.setTitle(title);
+		   substancesVO.setSubstance(substance);
+       substancesVO.setKindno(kindno);
+		  }
+		  mav.addObject("list", list);
 		    
-	    } else {
-	    	mav.setViewName("/grammer/login_need");
-	    }
 	    
 	    return mav;
 	  }
@@ -288,7 +289,7 @@ public class SubstancesCont {
 	    	
 	    	vo.setTitle(title);
 	    	vo.setSubstance(substance);
-	    }
+	   }
 		mav.addObject("list", list);
 		
 		KindVO kindVO = kindProc.read(substancesVO.getKindno());
@@ -481,7 +482,7 @@ public class SubstancesCont {
 	  public ModelAndView update_text(HttpSession session, int substancesno) {
 	    ModelAndView mav = new ModelAndView();
 	    
-	    if(grammerProc.isGrammer(session)) {
+	    if(visitorProc.isVisitor(session)) {
 	    	SubstancesVO substancesVO = this.substancesProc.read(substancesno);
 	    	mav.addObject("substancesVO", substancesVO);
 	    	
@@ -491,7 +492,7 @@ public class SubstancesCont {
 		   	mav.setViewName("/substances/update_text"); 
 		   	
 	    } else {
-	    	 mav.addObject("url", "/grammer/login_need"); // /WEB-INF/views/admin/login_need.jsp
+	    	 mav.addObject("url", "/visitor/login_need"); // /WEB-INF/views/admin/login_need.jsp
 	         mav.setViewName("redirect:/substances/msg.do");     	
 	    }   
 	    return mav;
@@ -509,7 +510,7 @@ public class SubstancesCont {
 	    
 	    // System.out.println("-> word: " + contentsVO.getWord());
 	    
-	    if (this.grammerProc.isGrammer(session)) { // 관리자 로그인 확인
+	    if (this.visitorProc.isVisitor(session)) { // 관리자 로그인 확인
 	      HashMap<String, Object> hashMap = new HashMap<String, Object>();
 	      hashMap.put("substancesno", substancesVO.getSubstancesno());
 	      hashMap.put("passwd", substancesVO.getPasswd());
@@ -530,7 +531,7 @@ public class SubstancesCont {
 	        mav.setViewName("redirect:/substances/msg.do");  // POST -> GET -> JSP 출력
 	      }
 	    } else { // 정상적인 로그인이 아닌 경우 로그인 유도
-	      mav.addObject("url", "/grammer/login_need"); // /WEB-INF/views/admin/login_need.jsp
+	      mav.addObject("url", "/visitor/login_need"); // /WEB-INF/views/admin/login_need.jsp
 	      mav.setViewName("redirect:/substances/msg.do"); 
 	    }
 	    
@@ -551,7 +552,7 @@ public class SubstancesCont {
 	  public ModelAndView update_file(HttpSession session, int substancesno) {
 	    ModelAndView mav = new ModelAndView();
 	    
-	    if(grammerProc.isGrammer(session)) {
+	    if(visitorProc.isVisitor(session)) {
 	    	SubstancesVO substancesVO = this.substancesProc.read(substancesno);
 	    	mav.addObject("substancesVO", substancesVO);
 	    	
@@ -561,7 +562,7 @@ public class SubstancesCont {
 		   	mav.setViewName("/substances/update_file"); 
 		   	
 	    } else {
-	    	 mav.addObject("url", "/grammer/login_need"); // /WEB-INF/views/admin/login_need.jsp
+	    	 mav.addObject("url", "/visitor/login_need"); // /WEB-INF/views/admin/login_need.jsp
 	         mav.setViewName("redirect:/substances/msg.do");     	
 	    }   
 	    return mav;
@@ -576,7 +577,7 @@ public class SubstancesCont {
 	  public ModelAndView update_file(HttpSession session, SubstancesVO substancesVO) {
 	    ModelAndView mav = new ModelAndView();
 	    
-	    if (this.grammerProc.isGrammer(session)) {
+	    if (this.visitorProc.isVisitor(session)) {
 	      // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
 	    	SubstancesVO substancesVO_old = substancesProc.read(substancesVO.getSubstancesno());
 	      
@@ -613,7 +614,7 @@ public class SubstancesCont {
 	        file1saved = Upload.saveFileSpring(mf, upDir); 
 	        
 	        if (Tool.isImage(file1saved)) { // 이미지인지 검사
-	          // thumb 이미지 생성후 파일명 리턴됨, width: 250, height: 200
+	          // thumb 이미지 생성후 파일명 리턴됨, wwth: 250, height: 200
 	          thumb1 = Tool.preview(upDir, file1saved, 250, 200); 
 	        }
 	        
@@ -639,7 +640,7 @@ public class SubstancesCont {
 	      mav.setViewName("redirect:/substances/read.do"); // request -> param으로 접근 전환
 	                
 	    } else {
-	      mav.addObject("url", "/grammer/login_need"); // login_need.jsp, redirect parameter 적용
+	      mav.addObject("url", "/visitor/login_need"); // login_need.jsp, redirect parameter 적용
 	      mav.setViewName("redirect:/substances/msg.do"); // GET
 	    }
 
@@ -658,7 +659,7 @@ public class SubstancesCont {
 	  public ModelAndView delete(HttpSession session, int substancesno) {
 	    ModelAndView mav = new ModelAndView();
 	    
-	    if(grammerProc.isGrammer(session)) {
+	    if(visitorProc.isVisitor(session)) {
 	    	SubstancesVO substancesVO = this.substancesProc.read(substancesno);
 	    	mav.addObject("substancesVO", substancesVO);
 	    	
@@ -668,7 +669,7 @@ public class SubstancesCont {
 		   	mav.setViewName("/substances/delete"); 
 		   	
 	    } else {
-	    	 mav.addObject("url", "/grammer/login_need"); // /WEB-INF/views/admin/login_need.jsp
+	    	 mav.addObject("url", "/visitor/login_need"); // /WEB-INF/views/admin/login_need.jsp
 	         mav.setViewName("redirect:/substances/msg.do");     	
 	    }   
 	    return mav;
