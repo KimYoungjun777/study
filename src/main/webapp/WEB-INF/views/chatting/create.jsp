@@ -15,17 +15,20 @@
 </head>
 <body>
 <c:import url="/menu/top.do"/>
-<div class='title_line'>종류 등록</div>
+<div class='title_line'>메시지 등록</div>
 
-<form name='frm' method='post' action='/kind/create.do'>
+<form name='frm' method='post' action='/chatting/create.do'>
+	<input type='hidden' name='visitorno' value='${sessionScope.visitorno }'>
+	<input type='hidden' name='reciverno' value='${param.reciverno }'>
+
   <div>
     <label>내용</label>
-    <input type="text" name="title" value="" required="required" autofocus="autofocus" 
+    <input type="text" name="msg" value="" required="required" autofocus="autofocus" 
                class="form-control form-control-sm" style="width: 50%">
   </div>
   <div class="content_body_bottom">
     <button type="submit" class="btn btn-secondary btn-sm">등록</button>
-    <button type="button" onclick="location.href='/kind/list_all.do'" class="btn btn-secondary btn-sm">목록</button> 
+    <button type="button" onclick="location.href='/substances/list_all.do'" class="btn btn-secondary btn-sm">목록</button> 
   </div>
 </form>
 

@@ -21,7 +21,8 @@ import com.zaxxer.hikari.HikariDataSource;
 @MapperScan(basePackages= {"dev.mvc.kind",
         								  "dev.mvc.grammer",
         								  "dev.mvc.substances",
-        								  "dev.mvc.visitor"})
+        								  "dev.mvc.visitor",
+        								  "dev.mvc.chatting"})
 public class DatabaseConfiguration {
     
     @Autowired

@@ -12,6 +12,7 @@ CREATE TABLE substances(
         replycnt                              NUMBER(7)         DEFAULT 0         NOT NULL,
         passwd                                VARCHAR2(15)         NOT NULL,
         word                                  VARCHAR2(100)         NULL ,
+        name                                  VARCHAR2(50)          NULL,
         review                                NUMBER(7)         DEFAULT 0         NOT NULL,
         rdate                                 DATE               NOT NULL,
         file1                                   VARCHAR(100)          NULL,  -- 원본 파일명 image

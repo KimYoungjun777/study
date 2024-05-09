@@ -1,5 +1,6 @@
 package dev.mvc.substances;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,6 +19,7 @@ import dev.mvc.kind.KindVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 import dev.mvc.visitor.VisitorProcInter;
+import dev.mvc.visitor.VisitorVO;
 import dev.mvc.grammer.GrammerProcInter;
 import dev.mvc.kind.KindProcInter;
 
@@ -109,8 +111,10 @@ public class SubstancesCont {
 	      // Call By Reference: 메모리 공유, Hashcode 전달
 	      int visitorno = (int)session.getAttribute("visitorno"); // adminno FK
 	      substancesVO.setVisitorno(visitorno);
+	      VisitorVO visitorVO = this.visitorProc.read(visitorno);
+	      substancesVO.setName(visitorVO.getMname());
+     
 	      int cnt = this.substancesProc.create(substancesVO); 
-	      
 	      // ------------------------------------------------------------------------------
 	      // PK의 return
 	      // ------------------------------------------------------------------------------
@@ -129,6 +133,7 @@ public class SubstancesCont {
 	      // System.out.println("--> cateno: " + contentsVO.getCateno());
 	      // redirect시에 hidden tag로 보낸것들이 전달이 안됨으로 request에 다시 저장
 	      mav.addObject("kindno", substancesVO.getKindno()); // redirect parameter 적용
+	      
 	      
 	      mav.addObject("url", "/substances/msg"); // msg.jsp, redirect parameter 적용
 	      mav.setViewName("redirect:/substances/msg.do"); // POST방식 GET방식으로 바꾸는 작업.

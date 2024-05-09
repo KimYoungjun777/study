@@ -13,6 +13,7 @@ CREATE TABLE substances(
         passwd                                VARCHAR2(15)         NOT NULL,
         word                                  VARCHAR2(100)         NULL ,
         address                               VARCHAR2(100)         NOT NULL,
+        name                                  VARCHAR2(100)         NULL,
         rdate                                 DATE               NOT NULL,
         file1                                   VARCHAR(100)          NULL,  -- 원본 파일명 image
         file1saved                            VARCHAR(100)          NULL,  -- 저장된 파일명, image
@@ -41,6 +42,7 @@ COMMENT ON COLUMN substances.replycnt is '댓글수';
 COMMENT ON COLUMN substances.passwd is '패스워드';
 COMMENT ON COLUMN substances.word is '검색어';
 COMMENT ON COLUMN substances.address  is '주소';
+COMMENT ON COLUMN substances.name  is '작성자';
 COMMENT ON COLUMN substances.rdate is '등록일';
 COMMENT ON COLUMN substances.file1 is '메인 이미지';
 COMMENT ON COLUMN substances.file1saved is '실제 저장된 메인 이미지';

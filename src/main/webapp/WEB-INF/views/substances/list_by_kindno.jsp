@@ -33,7 +33,7 @@
 <c:import url="/menu/top.do" />
  
   <DIV class='title_line'>
-    ${kindVO.title } 글 목록
+    ${kindVO.title } 글 목록 
     <c:if test="${param.word.length() > 0 }">
     > 『${param.word }』 검색 ${search_count} 건
     </c:if>
@@ -78,12 +78,14 @@
   <table class="table table-striped" style='width: 100%;'>
     <colgroup>
       <col style="width: 10%;"></col>
-      <col style="width: 80%;"></col>
+      <col style="width: 10%;"></col>
+      <col style="width: 70%;"></col>
       <col style="width: 10%;"></col>
     </colgroup>
 
     <thead>
       <tr>
+        <th style='text-align: center;'>닉네임</th>
         <th style='text-align: center;'>파일</th>
         <th style='text-align: center;'>제목</th>
         <th style='text-align: center;'>기타</th>
@@ -97,6 +99,9 @@
           <c:set var="thumb1" value="${substancesVO.thumb1 }" />
     
           <tr onclick="location.href='./read.do?substancesno=${substancesno}&kindno=${param.kindno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }'" style="cursor:pointer;">
+             <td class="td_bs" style="vertical-align: middle;">
+             	${substancesVO.name}
+             </td>
              <td>
               <c:choose>
                 <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}"> <%-- 이미지인지 검사 --%>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "dev.mvc.chatting.ChattingDAOInter">
+  <insert id="create" parameterType="dev.mvc.chatting.ChattingVO">
+		INSERT INTO chatting(chattingno, visitorno, reciverno, msg, rdate)
+		VALUES (chatting_seq.nextval, #{visitorno}, #{reciverno}, #{msg}, sysdate)
+  </insert>  
+  
+  <!-- 모든 채팅 목록 -->
+  <select id="list_all" resultType="dev.mvc.chatting.ChattingVO">
+  	SELECT chattingno, visitorno, reciverno, msg, rdate
+  	FROM chatting
+  	ORDER BY chattingno ASC
+  </select>
+  
+  <!-- 회원 별 채팅목록 -->
+	<select id="list_by_visitor" resultType="dev.mvc.chatting.ChattingVO" parameterType="int">
+		SELECT chattingno, reciverno, msg, rdate
+		FROM chatting
+		WHERE (reciverno, rdate) IN (
+			    SELECT reciverno, MAX(rdate) AS rdate
+			    FROM chatting
+			    WHERE visitorno = #{visitorno}
+    GROUP BY reciverno
+)
+	</select>
+
+</mapper>

@@ -101,7 +101,9 @@
             </c:otherwise>
           </c:choose>
 
-          <span style="font-size: 1.5em; font-weight: bold;">${substancesVO.title }</span ><span style="font-size: 1em;">${rdate }</span><br>
+          <span style="font-size: 1.5em; font-weight: bold;">${substancesVO.title }</span ><br><span style="font-size: 30px; text-align: right;">${substancesVO.name }</span>
+          <br><span style="font-size: 1em;">${rdate }</span>
+          <br>
           ${substance }
         </DIV>
       </li>
@@ -149,11 +151,14 @@
             <a href='/download?dir=/substances/storage&filename=${file1saved}&downname=${file1}'><img src="/substances/images/download.jpg" style='width: 25px; height:25px;]'></a>
           </c:if>
         </div>
-      </li>   
+     </li>   
+     <li class="li_none">
+      <button type="button" class="btn btn-info btn-sm" onclick="location.href='/chatting/create.do?reciverno=${substancesVO.visitorno}'">채팅하기</button>
+     </li>
     </ul>
   </fieldset>
 
-</DIV>
+
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>

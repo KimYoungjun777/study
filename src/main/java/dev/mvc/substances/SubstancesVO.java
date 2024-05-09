@@ -51,6 +51,8 @@ public class SubstancesVO {
     private String word = "";
     /** 주소 */
     private String address = "";
+    /** 작성자 */
+    private String name = "";
     /** 등록 날짜 */
     private String rdate = "";
     /** 지도 */
@@ -165,6 +167,12 @@ public class SubstancesVO {
   }
   public void setAddress(String address) {
     this.address = address;
+  }
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
   }
   public String getRdate() {
 		return rdate;

@@ -7,26 +7,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="dev.mvc.substances.SubstancesDAOInter">
   <insert id="create" parameterType="dev.mvc.substances.SubstancesVO">
     INSERT INTO substances(substancesno, visitorno, kindno, title, substance, cnt, replycnt, passwd, 
-                     word, address, file1, file1saved, thumb1, size1, rdate, price)
+                     word, address, name, file1, file1saved, thumb1, size1, rdate, price)
     VALUES(substances_seq.nextval, #{visitorno}, #{kindno}, #{title}, #{substance},  #{cnt}, #{replycnt}, #{passwd},
-       #{word}, #{address}, #{file1}, #{file1saved}, #{thumb1}, #{size1}, sysdate, #{price})
+       #{word}, #{address}, #{name}, #{file1}, #{file1saved}, #{thumb1}, #{size1}, sysdate, #{price})
   </insert> 
 
   <select id="list_all" parameterType="dev.mvc.substances.SubstancesVO">
-    SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1, price
+    SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, name, rdate, file1, file1saved, thumb1, size1, price
 		FROM substances
 		ORDER BY substancesno DESC
   </select>
   
   <select id="list_by_kindno" resultType="dev.mvc.substances.SubstancesVO" parameterType="int">
-     SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1, price
+     SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, name, rdate, file1, file1saved, thumb1, size1, price
 			FROM substances
 			WHERE kindno=#{kindno}
 			ORDER BY substancesno ASC
   </select>
   
   <select id="read" resultType="dev.mvc.substances.SubstancesVO" parameterType="int">
-     SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1, map, youtube, price
+     SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, name, rdate, file1, file1saved, thumb1, size1, map, youtube, price
       FROM substances
       WHERE substancesno=#{substancesno}
   </select>
@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <!-- 카테고리별 검색 목록 -->
   <select id="list_by_kindno_search" resultType="dev.mvc.substances.SubstancesVO" parameterType="HashMap">
-    SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1, map, youtube
+    SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, name, rdate, file1, file1saved, thumb1, size1, map, youtube
       FROM substances
     <choose>
       <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
@@ -75,11 +75,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
     <!-- 종류별 검색 + 페이징 목록 -->
   <select id="list_by_kindno_search_paging" resultType="dev.mvc.substances.SubstancesVO" parameterType="dev.mvc.substances.SubstancesVO">
-   SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1, map, youtube, r
+   SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, name, rdate, file1, file1saved, thumb1, size1, map, youtube, r
    FROM (
-              SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1, map, youtube, rownum as r
+              SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, name, rdate, file1, file1saved, thumb1, size1, map, youtube, rownum as r
               FROM (
-                        SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1, map, youtube
+                        SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, name, rdate, file1, file1saved, thumb1, size1, map, youtube
                         FROM substances
                         <choose>
                           <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
