@@ -153,7 +153,7 @@
         </div>
      </li>   
      <li class="li_none">
-      <button type="button" class="btn btn-info btn-sm" onclick="location.href='/chatting/create.do?reciverno=${substancesVO.visitorno}'">채팅하기</button>
+      <button type="button" class="btn btn-info btn-sm" onclick="location.href='/chatting/create.do?reciverno=${substancesVO.visitorno}&rname=${substancesVO.name }'">채팅하기</button>
      </li>
     </ul>
   </fieldset>

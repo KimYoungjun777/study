@@ -2,8 +2,10 @@ DROP TABLE chatting;
 
 CREATE TABLE chatting (
   chattingno NUMBER(10) NOT NULL, 
-  visitorno        NUMBER(10)   NOT NULL,  
+  visitorno        NUMBER(10)   NOT NULL,
+  vname         VARCHAR2(50) NULL,
   reciverno        NUMBER(10)   NOT NULL,  
+  rname         VARCHAR2(50) NULL,
   msg     VARCHAR(300)   NOT NULL, 
   rdate        DATE   NOT NULL, 
   PRIMARY KEY (chattingno),
@@ -14,7 +16,9 @@ CREATE TABLE chatting (
 COMMENT ON TABLE chatting is '채팅';
 COMMENT ON COLUMN chatting.chattingno is '채팅 번호';
 COMMENT ON COLUMN chatting.visitorno is '회원 번호';
+COMMENT ON COLUMN chatting.vname is '회원 번호';
 COMMENT ON COLUMN chatting.reciverno is '받는 사람';
+COMMENT ON COLUMN chatting.rname is '회원 번호';
 COMMENT ON COLUMN chatting.msg is '내용';
 COMMENT ON COLUMN chatting.rdate is '날짜';
 
@@ -29,18 +33,18 @@ CREATE SEQUENCE chatting_seq
 
 commit;
 
-INSERT INTO chatting(chattingno, visitorno, reciverno, msg, rdate) VALUES (chatting_seq.nextval, 1, 2, '콜라줘', sysdate);
+INSERT INTO chatting(chattingno, visitorno, reciverno, msg, rdate) VALUES (chatting_seq.nextval, 2, 3, '사이다 ㄱ?', sysdate);
 
 
 SELECT * FROM chatting;
 
 -- 회원 별 채팅 목록
-SELECT reciverno, msg, rdate
+SELECT rname, msg, rdate
 FROM chatting
 WHERE (reciverno, rdate) IN (
     SELECT reciverno, MAX(rdate) AS rdate
     FROM chatting
-    WHERE visitorno = 2
+    WHERE reciverno = 2
     GROUP BY reciverno
 );
 
@@ -50,9 +54,13 @@ FROM chatting
 WHERE visitorno = 1 and reciverno = 2
 ORDER BY rdate ASC;
 
+-- rname추가
+UPDATE chatting
+SET rname='김영준'
+WHERE reciverno = 2;
 
 
-DELETE FROM chatting
+DELETE FROM chatting;
 WHERE reciverno = 2;
 
 

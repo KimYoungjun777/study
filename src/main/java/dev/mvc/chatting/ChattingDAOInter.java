@@ -1,6 +1,7 @@
 package dev.mvc.chatting;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface ChattingDAOInter {
 
@@ -8,5 +9,9 @@ public interface ChattingDAOInter {
   
   public ArrayList<ChattingVO> list_all();
   
-  public ArrayList<ChattingVO> list_by_visitor(int visitorno);
+  public ArrayList<ChattingVO> list_by_visitor(ChattingVO chattingVO);
+  
+  public ChattingVO read(int chattingno);
+  
+  public int rname_edit(HashMap<String, Object> map);
 }

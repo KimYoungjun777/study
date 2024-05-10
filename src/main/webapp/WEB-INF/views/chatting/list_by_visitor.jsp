@@ -45,7 +45,7 @@
     <thead>
       <tr>
         <th class="th_bs">메시지번호 </th>
-        <th class="th_bs">받는 사람</th>
+        <th class="th_bs">채팅 상대</th>
         <th class="th_bs">내용</th>
         <th class="th_bs">등록일</th>
       </tr>
@@ -55,9 +55,9 @@
       <c:set var="chattingno" value="${chattingVO.chattingno }" />
       <tr>
         <td class="td_bs">${chattingVO.chattingno }</td>
-				<td class="td_bs">${chattingVO.reciverno}</td>
+				<td class="td_bs">${chattingVO.rname}</td>				
         <td class="td_bs">${chattingVO.msg }</td>
-        <td class="td_bs">${chattingVO.rdate.substring(0,10) }</td>
+        <td class="td_bs">${chattingVO.rdate.substring(0,19) }</td>
       </tr>
      </c:forEach>
     </tbody>

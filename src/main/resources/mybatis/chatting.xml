@@ -3,27 +3,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "dev.mvc.chatting.ChattingDAOInter">
   <insert id="create" parameterType="dev.mvc.chatting.ChattingVO">
-		INSERT INTO chatting(chattingno, visitorno, reciverno, msg, rdate)
-		VALUES (chatting_seq.nextval, #{visitorno}, #{reciverno}, #{msg}, sysdate)
+		INSERT INTO chatting(chattingno, visitorno, reciverno, rname, msg, rdate)
+		VALUES (chatting_seq.nextval, #{visitorno}, #{reciverno}, #{rname}, #{msg}, sysdate)
   </insert>  
   
   <!-- 모든 채팅 목록 -->
   <select id="list_all" resultType="dev.mvc.chatting.ChattingVO">
-  	SELECT chattingno, visitorno, reciverno, msg, rdate
+  	SELECT chattingno, visitorno, reciverno, rname, msg, rdate
   	FROM chatting
   	ORDER BY chattingno ASC
   </select>
   
-  <!-- 회원 별 채팅목록 -->
-	<select id="list_by_visitor" resultType="dev.mvc.chatting.ChattingVO" parameterType="int">
-		SELECT chattingno, reciverno, msg, rdate
+  <!-- 회원 별 보낸채팅목록 -->
+	<select id="list_by_visitor" resultType="dev.mvc.chatting.ChattingVO" parameterType="dev.mvc.chatting.ChattingVO">
+		SELECT chattingno, rname, msg, rdate
 		FROM chatting
 		WHERE (reciverno, rdate) IN (
 			    SELECT reciverno, MAX(rdate) AS rdate
 			    FROM chatting
 			    WHERE visitorno = #{visitorno}
-    GROUP BY reciverno
-)
+    GROUP BY reciverno)
+    ORDER BY rdate DESC
 	</select>
-
+	
+ <!-- 이름 추가  -->
+ <update id="rname_edit" parameterType="HashMap">
+	 UPDATE chatting
+		SET rname=#{rname}
+		WHERE reciverno = #{reciverno}
+ </update>
+ 
+	<!-- 채팅 상세 정보 -->
+	<select id="read" resultType="dev.mvc.chatting.ChattingVO" parameterType="int">
+		SELECT chattingno, rname, reciverno, msg, rdate
+		FROM chatting
+		WHERE chattingno = #{chattingno}
+	</select>
 </mapper>

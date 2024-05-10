@@ -20,9 +20,10 @@
 <form name='frm' method='post' action='/chatting/create.do'>
 	<input type='hidden' name='visitorno' value='${sessionScope.visitorno }'>
 	<input type='hidden' name='reciverno' value='${param.reciverno }'>
+	<input type='hidden' name='rname' value='${param.rname }'>
 
   <div>
-    <label>내용</label>
+    <label>내용${chattingVO.rname }</label>
     <input type="text" name="msg" value="" required="required" autofocus="autofocus" 
                class="form-control form-control-sm" style="width: 50%">
   </div>

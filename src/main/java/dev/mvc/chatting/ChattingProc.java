@@ -1,6 +1,7 @@
 package dev.mvc.chatting;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,10 +25,24 @@ public class ChattingProc implements ChattingProcInter {
   }
 
   @Override
-  public ArrayList<ChattingVO> list_by_visitor(int visitorno) {
-    ArrayList<ChattingVO> list_by_visitor = this.chattingDAO.list_by_visitor(visitorno);
+  public ArrayList<ChattingVO> list_by_visitor(ChattingVO chattingVO) {
+    ArrayList<ChattingVO> list_by_visitor = this.chattingDAO.list_by_visitor(chattingVO);
     return list_by_visitor;
   }
+
+  @Override
+  public ChattingVO read(int chattingno) {
+    ChattingVO chattingVO = this.chattingDAO.read(chattingno);
+    return chattingVO;
+  }
+
+  @Override
+  public int rname_edit(HashMap<String, Object> map) {
+    int cnt = this.chattingDAO.rname_edit(map);
+    return cnt;
+  }
+
+
 
   
 }
