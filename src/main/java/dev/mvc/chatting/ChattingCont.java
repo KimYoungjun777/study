@@ -64,13 +64,8 @@ public class ChattingCont {
     ModelAndView mav = new ModelAndView();
     
     if(this.visitorProc.isVisitor(session) == true) {       
+      
       int cnt = this.chattingProc.create(chattingVO);
-      int reciverno = chattingVO.getReciverno();
-      VisitorVO visitorVO = this.visitorProc.read(reciverno);
-      String rname = visitorVO.getMname();
-      chattingVO.setRname(rname);
-      mav.addObject("chattingVO", chattingVO);
-
       
       if (cnt == 1) {
         mav.setViewName("redirect:/chatting/list_by_visitor.do");
@@ -125,6 +120,84 @@ public class ChattingCont {
       
       ArrayList<ChattingVO> list_by_visitor = this.chattingProc.list_by_visitor(chattingVO);
       mav.addObject("list_by_visitor", list_by_visitor);
+    } else {
+      mav.setViewName("/visitor/login_need");
+    }
+    return mav;
+  }
+  
+  /**
+   * 회원별 받은 메시지 목록
+   * @param session
+   * @return
+   */
+  @RequestMapping(value="/chatting/list_by_reciver.do", method = RequestMethod.GET)
+  public ModelAndView list_by_reciver(HttpSession session, ChattingVO chattingVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    
+    if(this.visitorProc.isVisitor(session) == true) {
+      mav.setViewName("/chatting/list_by_reciver"); // /WEB-INF/views/cate/list_all.jsp
+      
+      int reciverno = (int)session.getAttribute("visitorno");
+      chattingVO.setReciverno(reciverno);
+      
+      ArrayList<ChattingVO> list_by_reciver = this.chattingProc.list_by_reciver(chattingVO);
+      mav.addObject("list_by_reciver", list_by_reciver);
+    } else {
+      mav.setViewName("/visitor/login_need");
+    }
+    return mav;
+  }
+  
+  /**
+   * 보낸 메시지 목록(받은 사람 기준으로 다보이게)
+   * @param session
+   * @return
+   */
+  @RequestMapping(value="/chatting/chatting_list_by_visitor.do", method = RequestMethod.GET)
+  public ModelAndView chatting_list_by_visitor(HttpSession session, ChattingVO chattingVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    
+    if(this.visitorProc.isVisitor(session) == true) {
+      mav.setViewName("/chatting/chatting_list_by_visitor"); // /WEB-INF/views/cate/list_all.jsp
+      
+      int visitorno = (int)session.getAttribute("visitorno");
+      chattingVO.setVisitorno(visitorno);
+      
+      VisitorVO visitorVO = this.visitorProc.read(chattingVO.getReciverno());
+      chattingVO.setRname(visitorVO.getMname());
+      
+      ArrayList<ChattingVO> chatting_list_by_visitor = this.chattingProc.chatting_list_by_visitor(chattingVO);
+      mav.addObject("chatting_list_by_visitor", chatting_list_by_visitor);
+    } else {
+      mav.setViewName("/visitor/login_need");
+    }
+    return mav;
+  }
+  
+  /**
+   * 받은 메시지 목록(보낸 사람 기준으로 다보이게)
+   * @param session
+   * @return
+   */
+  @RequestMapping(value="/chatting/chatting_list_by_reciver.do", method = RequestMethod.GET)
+  public ModelAndView chatting_list_by_reciver(HttpSession session, ChattingVO chattingVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    
+    if(this.visitorProc.isVisitor(session) == true) {
+      mav.setViewName("/chatting/chatting_list_by_reciver"); // /WEB-INF/views/cate/list_all.jsp
+      
+      int visitorno = (int)session.getAttribute("visitorno");
+      chattingVO.setReciverno(visitorno);
+      
+      VisitorVO visitorVO = this.visitorProc.read(chattingVO.getVisitorno());
+      chattingVO.setVname(visitorVO.getMname());
+      
+      ArrayList<ChattingVO> chatting_list_by_reciver = this.chattingProc.chatting_list_by_reciver(chattingVO);
+      mav.addObject("chatting_list_by_reciver", chatting_list_by_reciver);
     } else {
       mav.setViewName("/visitor/login_need");
     }

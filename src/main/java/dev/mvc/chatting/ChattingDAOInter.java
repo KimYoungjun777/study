@@ -10,6 +10,12 @@ public interface ChattingDAOInter {
   public ArrayList<ChattingVO> list_all();
   
   public ArrayList<ChattingVO> list_by_visitor(ChattingVO chattingVO);
+
+  public ArrayList<ChattingVO> list_by_reciver(ChattingVO chattingVO);
+  
+  public ArrayList<ChattingVO> chatting_list_by_visitor(ChattingVO chattingVO);
+
+  public ArrayList<ChattingVO> chatting_list_by_reciver(ChattingVO chattingVO);
   
   public ChattingVO read(int chattingno);
   

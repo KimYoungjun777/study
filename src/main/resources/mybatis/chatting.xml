@@ -3,20 +3,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "dev.mvc.chatting.ChattingDAOInter">
   <insert id="create" parameterType="dev.mvc.chatting.ChattingVO">
-		INSERT INTO chatting(chattingno, visitorno, reciverno, rname, msg, rdate)
-		VALUES (chatting_seq.nextval, #{visitorno}, #{reciverno}, #{rname}, #{msg}, sysdate)
+		INSERT INTO chatting(chattingno, visitorno, vname, reciverno, rname, msg, rdate)
+		VALUES (chatting_seq.nextval, #{visitorno}, #{vname}, #{reciverno}, #{rname}, #{msg}, sysdate)
   </insert>  
   
   <!-- 모든 채팅 목록 -->
   <select id="list_all" resultType="dev.mvc.chatting.ChattingVO">
-  	SELECT chattingno, visitorno, reciverno, rname, msg, rdate
+  	SELECT chattingno, visitorno, vname, reciverno, rname, msg, rdate
   	FROM chatting
   	ORDER BY chattingno ASC
   </select>
   
-  <!-- 회원 별 보낸채팅목록 -->
+  <!-- 회원 별 보낸 채팅 목록 -->
 	<select id="list_by_visitor" resultType="dev.mvc.chatting.ChattingVO" parameterType="dev.mvc.chatting.ChattingVO">
-		SELECT chattingno, rname, msg, rdate
+		SELECT chattingno, visitorno, reciverno, rname, msg, rdate
 		FROM chatting
 		WHERE (reciverno, rdate) IN (
 			    SELECT reciverno, MAX(rdate) AS rdate
@@ -24,6 +24,34 @@
 			    WHERE visitorno = #{visitorno}
     GROUP BY reciverno)
     ORDER BY rdate DESC
+	</select>
+	
+	  <!-- 회원 별 받은 채팅 목록 -->
+	<select id="list_by_reciver" resultType="dev.mvc.chatting.ChattingVO" parameterType="dev.mvc.chatting.ChattingVO">
+		SELECT chattingno, visitorno, reciverno, vname, msg, rdate
+		FROM chatting
+		WHERE (visitorno, rdate) IN (
+			    SELECT visitorno, MAX(rdate) AS rdate
+			    FROM chatting
+			    WHERE reciverno = #{reciverno}
+    GROUP BY visitorno)
+    ORDER BY rdate DESC
+	</select>
+	
+	<!-- 보낸 채팅 목록(받는 사람 기준) -->
+	<select id="chatting_list_by_visitor" resultType="dev.mvc.chatting.ChattingVO" parameterType="dev.mvc.chatting.ChattingVO">
+		SELECT chattingno, rname, msg, rdate
+		FROM chatting
+		WHERE visitorno = #{visitorno} and reciverno = #{reciverno}
+		ORDER BY rdate DESC
+	</select>
+	
+		<!-- 보낸 채팅 목록(받는 사람 기준) -->
+	<select id="chatting_list_by_reciver" resultType="dev.mvc.chatting.ChattingVO" parameterType="dev.mvc.chatting.ChattingVO">
+		SELECT chattingno, vname, msg, rdate
+		FROM chatting
+		WHERE visitorno = #{visitorno} and reciverno = #{reciverno}
+		ORDER BY rdate DESC
 	</select>
 	
  <!-- 이름 추가  -->

@@ -74,8 +74,9 @@
                     <a class="dropdown-item" href="/visitor/read.do">가입 정보</a>
                     <a class="dropdown-item" href="/visitor/passwd_update.do">비밀번호 변경</a>
                     <a class="dropdown-item" href="/visitor/read.do">회원 정보 수정</a>
+                    <a class="dropdown-item" href="/chatting/list_by_visitor.do">메시지함</a>
                     <a class="dropdown-item" href="javascript: alert('개발 예정')">로그인 내역</a>
-                    <a class="dropdown-item" href="#">회원 탈퇴</a>
+                    <a class="dropdown-item" href="javascript: alert('개발예정')">회원 탈퇴</a>
                   </c:otherwise>
                 </c:choose>
               </div>

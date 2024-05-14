@@ -17,7 +17,7 @@
 </head>
 <body>
 <c:import url="/menu/top.do"/>
-<div class='title_line'>보낸 메시지</div>
+<div class='title_line'>『${chattingVO.vname}』님에게 받은 메시지 목록</div>
   <aside class="aside_right">
    <a href="./create.do?kindno=${kindVO.kindno }">등록</a>
 	 <span class='menu_divide' >│</span>
@@ -38,21 +38,23 @@
     <thead>
       <tr>
         <th class="th_bs">메시지번호 </th>
-        <th class="th_bs">받는 사람</th>
+        <th class="th_bs">보낸 사람</th>
         <th class="th_bs">내용</th>
         <th class="th_bs">등록일</th>
       </tr>
     </thead>
     <tbody>
-      <c:forEach var="chattingVO" items="${list_by_visitor }" varStatus="info">
+    
+      <c:forEach var="chattingVO" items="${chatting_list_by_reciver }" varStatus="info">
       <c:set var="chattingno" value="${chattingVO.chattingno }" />
-      <tr onclick="location.href='./chatting_list_by_visitor.do?visitorno=${chattingVO.visitorno }&reciverno=${chattingVO.reciverno}'" style="cursor:pointer;">
-        <td class="td_bs">${chattingVO.chattingno }</td>
-				<td class="td_bs">${chattingVO.rname}</td>				
-        <td class="td_bs">${chattingVO.msg }</td>
-        <td class="td_bs">${chattingVO.rdate.substring(0,19) }</td>
-      </tr>
+        <tr>
+	        <td class="td_bs">${chattingVO.chattingno }</td>
+					<td class="td_bs">${chattingVO.vname}</td>				
+	        <td class="td_bs">${chattingVO.msg }</td>
+	        <td class="td_bs">${chattingVO.rdate.substring(0,19) }</td>
+     		</tr>
      </c:forEach>
+     
     </tbody>
     
 </table>

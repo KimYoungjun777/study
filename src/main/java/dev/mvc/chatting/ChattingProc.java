@@ -29,7 +29,25 @@ public class ChattingProc implements ChattingProcInter {
     ArrayList<ChattingVO> list_by_visitor = this.chattingDAO.list_by_visitor(chattingVO);
     return list_by_visitor;
   }
+  
+  @Override
+  public ArrayList<ChattingVO> list_by_reciver(ChattingVO chattingVO) {
+    ArrayList<ChattingVO> list_by_reciver = this.chattingDAO.list_by_reciver(chattingVO);
+    return list_by_reciver;
+  }
 
+  @Override
+  public ArrayList<ChattingVO> chatting_list_by_visitor(ChattingVO chattingVO) {
+    ArrayList<ChattingVO> chatting_list_by_visitor = this.chattingDAO.chatting_list_by_visitor(chattingVO);
+    return chatting_list_by_visitor;
+  }
+
+  @Override
+  public ArrayList<ChattingVO> chatting_list_by_reciver(ChattingVO chattingVO) {
+    ArrayList<ChattingVO> chatting_list_by_reciver = this.chattingDAO.chatting_list_by_reciver(chattingVO);
+    return chatting_list_by_reciver;
+  }
+  
   @Override
   public ChattingVO read(int chattingno) {
     ChattingVO chattingVO = this.chattingDAO.read(chattingno);

@@ -38,28 +38,40 @@ INSERT INTO chatting(chattingno, visitorno, reciverno, msg, rdate) VALUES (chatt
 
 SELECT * FROM chatting;
 
--- 회원 별 채팅 목록
+-- 회원 별 보낸 채팅 목록
 SELECT rname, msg, rdate
 FROM chatting
 WHERE (reciverno, rdate) IN (
     SELECT reciverno, MAX(rdate) AS rdate
     FROM chatting
-    WHERE reciverno = 2
+    WHERE visitorno = 2
     GROUP BY reciverno
 );
 
--- 채팅 상세
-SELECT *
+-- 회원 별 받은 채팅 목록
+SELECT vname, msg, rdate
+FROM chatting
+WHERE (visitorno, rdate) IN (
+    SELECT visitorno, MAX(rdate) AS rdate
+    FROM chatting
+    WHERE reciverno = 2
+    GROUP BY visitorno
+);
+-- 보낸 채팅 목록(보낸 사람 기준으로 다 보이게)
+SELECT rname, msg, rdate
+FROM chatting
+WHERE visitorno = 2 and reciverno = 1
+ORDER BY rdate DESC;
+
+-- 받은 채팅 목록(보낸 사람 기준으로 다 보이게)
+SELECT vname, msg, rdate
 FROM chatting
 WHERE visitorno = 1 and reciverno = 2
-ORDER BY rdate ASC;
-
--- rname추가
-UPDATE chatting
-SET rname='김영준'
-WHERE reciverno = 2;
+ORDER BY rdate DESC;
 
 
+
+-- 삭제요
 DELETE FROM chatting;
 WHERE reciverno = 2;
 
