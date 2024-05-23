@@ -61,9 +61,16 @@
 		WHERE reciverno = #{reciverno}
  </update>
  
-	<!-- 채팅 상세 정보 -->
-	<select id="read" resultType="dev.mvc.chatting.ChattingVO" parameterType="int">
-		SELECT chattingno, rname, reciverno, msg, rdate
+	<!-- 채팅 상세 정보(사용자가 받은 메시지) -->
+	<select id="read_by_reciver" resultType="dev.mvc.chatting.ChattingVO" parameterType="int">
+		SELECT chattingno, visitorno, vname, reciverno, msg, rdate
+		FROM chatting
+		WHERE chattingno = #{chattingno}
+	</select>
+	
+		<!-- 채팅 상세 정보(사용자가 보낸 메시지) -->
+	<select id="read_by_visitor" resultType="dev.mvc.chatting.ChattingVO" parameterType="int">
+		SELECT chattingno, visitorno, rname, reciverno, msg, rdate
 		FROM chatting
 		WHERE chattingno = #{chattingno}
 	</select>

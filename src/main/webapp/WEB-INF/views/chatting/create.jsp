@@ -15,7 +15,7 @@
 </head>
 <body>
 <c:import url="/menu/top.do"/>
-<div class='title_line'>메시지 등록</div>
+<div class='title_line'>『${param.rname }』님에게 메시지 보내기</div>
 
 <form name='frm' method='post' action='/chatting/create.do'>
 	<input type='hidden' name='visitorno' value='${sessionScope.visitorno }'>

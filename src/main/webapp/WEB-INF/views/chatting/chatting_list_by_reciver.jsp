@@ -47,7 +47,7 @@
     
       <c:forEach var="chattingVO" items="${chatting_list_by_reciver }" varStatus="info">
       <c:set var="chattingno" value="${chattingVO.chattingno }" />
-        <tr>
+      <tr onclick="location.href='./read_by_reciver.do?chattingno=${chattingVO.chattingno }'" style="cursor:pointer;">
 	        <td class="td_bs">${chattingVO.chattingno }</td>
 					<td class="td_bs">${chattingVO.vname}</td>				
 	        <td class="td_bs">${chattingVO.msg }</td>

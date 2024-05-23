@@ -72,8 +72,8 @@ ORDER BY rdate DESC;
 
 
 -- 삭제요
-DELETE FROM chatting;
-WHERE reciverno = 2;
+DELETE FROM chatting
+WHERE chattingno = 51;
 
 
 

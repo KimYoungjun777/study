@@ -19,8 +19,7 @@
 <c:import url="/menu/top.do"/>
 <div class='title_line'>『${chattingVO.rname}』님에게 보낸 메시지 목록</div>
   <aside class="aside_right">
-   <a href="./create.do?kindno=${kindVO.kindno }">등록</a>
-	 <span class='menu_divide' >│</span>
+
 	 <a href="javascript:location.reload();">새로고침</a>
 	 <span class='menu_divide' >│</span>
   	<a href="./list_by_reciver.do">받은 메시지</a>
@@ -47,7 +46,7 @@
     
       <c:forEach var="chattingVO" items="${chatting_list_by_visitor }" varStatus="info">
       <c:set var="chattingno" value="${chattingVO.chattingno }" />
-        <tr>
+      <tr onclick="location.href='./read_by_visitor.do?chattingno=${chattingVO.chattingno }'" style="cursor:pointer;">
 	        <td class="td_bs">${chattingVO.chattingno }</td>
 					<td class="td_bs">${chattingVO.rname}</td>				
 	        <td class="td_bs">${chattingVO.msg }</td>

@@ -16,22 +16,21 @@
 </head>
 <body>
 <c:import url="/menu/top.do"/>
-<div class='title_line'>메시지 조회</div>
+<div class='title_line'>보낸 메시지 조회</div>
   <%
   ChattingVO chattingVO = (ChattingVO)request.getAttribute("chattingVO");  
   %>
   <div class="container mt-3">
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">번호: <%=chattingVO.getChattingno() %></li>
-      <li class="list-group-item">이름: <%=chattingVO.getRname() %></li>
-      <li class="list-group-item">회원번호: <%=chattingVO.getReciverno() %></li>
-      <li class="list-group-item">내용: <%=chattingVO.getMsg() %></li>
+      <li class="list-group-item">받는 사람 : <%=chattingVO.getRname() %></li>
+      <li class="list-group-item">보낸 날짜 : <%=chattingVO.getRdate() %></li>
+      <li class="list-group-item">내용 : <%=chattingVO.getMsg() %></li>
     </ul>
   </div>
 
   <div class="content_body_bottom">
-    <button type="button" onclick="location.href='./create.do'" class="btn btn-secondary btn-sm">등록</button>
-    <button type="button" onclick="location.href='./list_all.do'" class="btn btn-secondary btn-sm">목록</button> 
+    <button type="button" onclick="location.href='./create.do?reciverno=${chattingVO.reciverno}&rname=${chattingVO.rname }'" class="btn btn-secondary btn-sm">답장</button>
+    <button type="button" onclick="location.href='./chatting_list_by_visitor.do'" class="btn btn-secondary btn-sm">목록</button> 
   </div>
 
 <jsp:include page="../menu/bottom.jsp" flush='false' /> 

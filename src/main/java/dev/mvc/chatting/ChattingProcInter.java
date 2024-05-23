@@ -18,7 +18,9 @@ public interface ChattingProcInter {
 
   public ArrayList<ChattingVO> chatting_list_by_reciver(ChattingVO chattingVO);
   
-  public ChattingVO read(int chattingno);
+  public ChattingVO read_by_reciver(int chattingno);
+    
+  public ChattingVO read_by_visitor(int chattingno);
 
   public int rname_edit(HashMap<String, Object> map);
 }

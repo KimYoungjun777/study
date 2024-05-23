@@ -205,16 +205,32 @@ public class ChattingCont {
   }
   
   /**
-   * 채팅내역 하나만 보기
+   * 채팅내역 하나만 보기(사용자가 받은 거)
    * @param chattingno
    * @return
    */
-  @RequestMapping(value="/chatting/read.do", method = RequestMethod.GET)
-  public ModelAndView read(int chattingno) { // int cateno = (int)request.getParameter("cateno");
+  @RequestMapping(value="/chatting/read_by_reciver.do", method = RequestMethod.GET)
+  public ModelAndView read_by_reciver(int chattingno) { // int cateno = (int)request.getParameter("cateno");
     ModelAndView mav = new ModelAndView();
-    mav.setViewName("/chatting/read"); // /WEB-INF/views/cate/read.jsp
+    mav.setViewName("/chatting/read_by_reciver"); // /WEB-INF/views/cate/read.jsp
     
-    ChattingVO chattingVO = this.chattingProc.read(chattingno);
+    ChattingVO chattingVO = this.chattingProc.read_by_reciver(chattingno);
+    mav.addObject("chattingVO", chattingVO);
+    
+    return mav;
+  }
+  
+  /**
+   * 채팅내역 하나만 보기(사용자가 받은 거)
+   * @param chattingno
+   * @return
+   */
+  @RequestMapping(value="/chatting/read_by_visitor.do", method = RequestMethod.GET)
+  public ModelAndView read_by_visitor(int chattingno) { // int cateno = (int)request.getParameter("cateno");
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/chatting/read_by_visitor"); // /WEB-INF/views/cate/read.jsp
+    
+    ChattingVO chattingVO = this.chattingProc.read_by_visitor(chattingno);
     mav.addObject("chattingVO", chattingVO);
     
     return mav;

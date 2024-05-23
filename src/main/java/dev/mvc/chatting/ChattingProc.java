@@ -48,9 +48,16 @@ public class ChattingProc implements ChattingProcInter {
     return chatting_list_by_reciver;
   }
   
+
   @Override
-  public ChattingVO read(int chattingno) {
-    ChattingVO chattingVO = this.chattingDAO.read(chattingno);
+  public ChattingVO read_by_reciver(int chattingno) {
+    ChattingVO chattingVO = this.chattingDAO.read_by_reciver(chattingno);
+    return chattingVO;
+  }
+
+  @Override
+  public ChattingVO read_by_visitor(int chattingno) {
+    ChattingVO chattingVO = this.chattingDAO.read_by_visitor(chattingno);
     return chattingVO;
   }
 

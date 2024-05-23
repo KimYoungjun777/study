@@ -19,8 +19,6 @@
 <c:import url="/menu/top.do"/>
 <div class='title_line'>받은 메시지</div>
   <aside class="aside_right">
-   <a href="./create.do?kindno=${kindVO.kindno }">등록</a>
-	 <span class='menu_divide' >│</span>
 	 <a href="javascript:location.reload();">새로고침</a>
 	 <span class='menu_divide' >│</span>
   	<a href="./list_by_visitor.do">보낸 메시지</a>
