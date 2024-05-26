@@ -20,6 +20,7 @@ import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 import dev.mvc.visitor.VisitorProcInter;
 import dev.mvc.visitor.VisitorVO;
+import dev.mvc.bookmark.BookmarkProcInter;
 import dev.mvc.grammer.GrammerProcInter;
 import dev.mvc.kind.KindProcInter;
 
@@ -40,6 +41,10 @@ public class SubstancesCont {
 	@Autowired
 	@Qualifier("dev.mvc.substances.SubstancesProc")
 	private SubstancesProcInter substancesProc;
+	
+	@Autowired
+	@Qualifier("dev.mvc.bookmark.BookmarkProc")
+	private BookmarkProcInter bookmarkProc;
 	
 	// 등록 폼, contents 테이블은 FK로 cateno를 사용함.
 	  // http://localhost:9091/contents/create.do  X
@@ -344,7 +349,8 @@ public class SubstancesCont {
     	substancesVO.setSubstance(substance);	   
     	substancesVO.setSize1_label(size1_label);	     
 	    
-	    
+      int bookmark_cnt = this.bookmarkProc.bookmark_cnt(substancesno);
+      mav.addObject("bookmark_cnt", bookmark_cnt);
 	    mav.addObject("substancesVO", substancesVO);
 	    
 	    return mav;

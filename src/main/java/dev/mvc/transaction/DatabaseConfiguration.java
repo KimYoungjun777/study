@@ -22,7 +22,8 @@ import com.zaxxer.hikari.HikariDataSource;
         								  "dev.mvc.grammer",
         								  "dev.mvc.substances",
         								  "dev.mvc.visitor",
-        								  "dev.mvc.chatting"})
+        								  "dev.mvc.chatting",
+        								  "dev.mvc.bookmark"})
 public class DatabaseConfiguration {
     
     @Autowired

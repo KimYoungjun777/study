@@ -15,6 +15,7 @@
 <c:set var="price" value="${substancesVO.price }"/>
 <c:set var="file1" value="${substancesVO.file1 }"/>
 <c:set var="size1_label" value="${substancesVO.size1_label }"/>
+<c:set var="bookmark_cnt" value="${bookmark_cnt }" />
 
 
 <!DOCTYPE html> 
@@ -27,6 +28,76 @@
 <link rel="shortcut icon" href="/css/images/shortcut.png" /> <%-- /static 기준 --%>
 <link href="/css/style.css" rel="Stylesheet" type="text/css"> <!-- /static 기준 -->
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+
+var bookmark_cnt = ${bookmark_cnt};
+var substancesno = ${substancesno};
+var visitorno = ${visitorno};
+
+$(document).ready(function () {
+    $.ajax({
+        type: 'GET',
+        url: '/bookmark/bookmark_by_visitor_cnt.do',
+        cache: false,
+        data: { substancesno: substancesno, visitorno: visitorno },
+        dataType: 'json',
+        success: function (response) {
+            console.log(response.cnt);
+            var visitor_cnt = response.cnt;
+            if (visitor_cnt == 1) {
+                $('#bookmarkbtn').hide();
+                $('#bookmarkbtn2').show();
+            } else {
+                $('#bookmarkbtn').show();
+                $('#bookmarkbtn2').hide();
+            }
+            $('#bookmark_cnt').text("『" + bookmark_cnt + "명의 이용자들이 이 게시글을 북마크했습니다.』");
+        },
+        error: function (error) {
+            console.error('게시글 찜 실패:', error);
+        }
+    });
+});
+
+function create() {
+    $.ajax({
+        type: 'POST',
+        url: '/bookmark/create.do',
+        data: { substancesno: substancesno, visitorno: visitorno },
+        success: function (response) {
+                bookmark_cnt = response.bookmark_cnt;
+                $('#bookmarkbtn').hide();
+                $('#bookmarkbtn2').show();
+                $('#bookmark_cnt').text("『" + bookmark_cnt + "명의 이용자들이 이 게시글을 북마크했습니다.』");
+        },
+        error: function (error) {
+            console.error('찜 등록 실패:', error);
+        }
+    });
+}
+
+function unlike() {
+    var substancesno = ${substancesno};
+    var visitorno = ${visitorno};
+
+    // 서버로 좋아요 요청을 보냄
+    $.ajax({
+        type: 'POST',
+        url: '/bookmark/delete.do',
+        data: { substancesno: substancesno, visitorno: visitorno },
+        success: function (response) {
+        				bookmark_cnt = response.bookmark_cnt;
+                $('#bookmarkbtn').show();
+                $('#bookmarkbtn2').hide();
+                $('#bookmark_cnt').text("『" + bookmark_cnt + "명의 이용자들이 이 게시글을 북마크했습니다.』");
+        },
+        error: function (error) {
+            console.error('찜 해제 실패:', error);
+        }
+    });
+}
+</script>
     
 </head> 
  
@@ -154,11 +225,17 @@
      </li>   
      <li class="li_none">
       <button type="button" class="btn btn-info btn-sm" onclick="location.href='/chatting/create.do?reciverno=${substancesVO.visitorno}&rname=${substancesVO.name }'">채팅하기</button>
-     </li>
+			</li>
     </ul>
   </fieldset>
 
-
+  <form id="bookmark_form">						
+	  	<input type="hidden" name="substancesno" value="${substancesno}">			
+	  	<input type="hidden" name="visitorno" value="${visitorno}">			
+			<img src="/bookmark/images/bookmark2.png"  onclick="create();" id="bookmarkbtn" title="찜하기">	
+			<img src="/bookmark/images/bookmark1.png"  onclick="unlike();" id="bookmarkbtn2" title="찜해제"style="display: none;">	
+			<span id= "bookmark_cnt" name="bookmark_cnt">『${bookmark_cnt }명의 이용자들이 이 게시글을 북마크했습니다.』</span>
+  </form>
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>
