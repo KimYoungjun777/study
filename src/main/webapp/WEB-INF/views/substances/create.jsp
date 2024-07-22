@@ -90,6 +90,7 @@
        <input type='password' name='passwd' value='1234' required="required" 
                  class="form-control" style='width: 50%;'>
     </div>   
+
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-info btn-sm">등록</button>
       <button type="button" onclick="location.href='./list_by_kindno.do?kindno=${param.kindno}'" class="btn btn-info btn-sm">목록</button>

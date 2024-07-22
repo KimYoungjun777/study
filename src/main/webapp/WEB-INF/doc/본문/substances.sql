@@ -1,4 +1,4 @@
-DROP TABLE substances;
+DROP TABLE substances CASCADE CONSTRAINTS;
 DROP SEQUENCE substances_seq;
 
 CREATE TABLE substances(
@@ -14,6 +14,7 @@ CREATE TABLE substances(
         word                                  VARCHAR2(100)         NULL ,
         address                               VARCHAR2(100)         NOT NULL,
         name                                  VARCHAR2(100)         NULL,
+        state                                 VARCHAR2(100)      DEFAULT 'no'     NOT NULL,
         rdate                                 DATE               NOT NULL,
         file1                                   VARCHAR(100)          NULL,  -- 원본 파일명 image
         file1saved                            VARCHAR(100)          NULL,  -- 저장된 파일명, image
@@ -43,6 +44,7 @@ COMMENT ON COLUMN substances.passwd is '패스워드';
 COMMENT ON COLUMN substances.word is '검색어';
 COMMENT ON COLUMN substances.address  is '주소';
 COMMENT ON COLUMN substances.name  is '작성자';
+COMMENT ON COLUMN substances.state  is '상태';
 COMMENT ON COLUMN substances.rdate is '등록일';
 COMMENT ON COLUMN substances.file1 is '메인 이미지';
 COMMENT ON COLUMN substances.file1saved is '실제 저장된 메인 이미지';
@@ -66,11 +68,11 @@ CREATE SEQUENCE SUBSTANCES_SEQ
 commit;
 -- 등록 화면 유형 1: 커뮤니티(공지사항, 게시판, 자료실, 갤러리,  Q/A...)글 등록
 INSERT INTO substances(substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, 
-                     word, address, rdate, file1, file1saved, thumb1, size1)
+                     word, address, state, rdate, file1, file1saved, thumb1, size1)
 VALUES(substances_seq.nextval, 1, 1, '엽기떡볶이', '매운 맛이 일품', 0, 0, 0, '123',
-       '산책', '경기도 의정부시', sysdate, 'space.jpg', 'space_1.jpg', 'space_t.jpg', 1000);
+       '산책', '경기도 의정부시', 'no', sysdate, 'space.jpg', 'space_1.jpg', 'space_t.jpg', 1000);
 
-SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1
+SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, state, rdate, file1, file1saved, thumb1, size1
 FROM substances
 ORDER BY substancesno ASC;
 
@@ -87,7 +89,7 @@ VALUES(substances_seq.nextval, 1, 1, '홍콩반점', '짜장면이 일품', 0, 0
 COMMIT;
 
 -- 1번 kindno만 출력
-SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, rdate, file1, file1saved, thumb1, size1
+SELECT substancesno, visitorno, kindno, title, substance, recom, cnt, replycnt, passwd, word, address, state, rdate, file1, file1saved, thumb1, size1
 FROM substances
 WHERE kindno=1
 ORDER BY substancesno ASC;

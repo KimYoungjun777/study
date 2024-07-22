@@ -59,6 +59,8 @@ public class SubstancesVO {
     private String map;
     /** Youtube */
     private String youtube;
+    /** 상태 */
+    private String state;
 
     // 파일 업로드 관련
     // -----------------------------------------------------------------------------------
@@ -180,7 +182,13 @@ public class SubstancesVO {
 	public void setRdate(String rdate) {
 		this.rdate = rdate;
 	}
-	public String getMap() {
+	public String getState() {
+    return state;
+  }
+  public void setState(String state) {
+    this.state = state;
+  }
+  public String getMap() {
 		return map;
 	}
 	public void setMap(String map) {

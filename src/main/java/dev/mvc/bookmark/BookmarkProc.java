@@ -1,5 +1,7 @@
 package dev.mvc.bookmark;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +26,12 @@ public class BookmarkProc implements BookmarkProcInter {
   public int bookmark_cnt(int substancesno) {
     int cnt = this.bookmarkDAO.bookmark_cnt(substancesno);
     return cnt;
+  }
+
+  @Override
+  public ArrayList<Integer> substances_by_visitor(int visitorno) {
+    ArrayList <Integer> substancesno = this.bookmarkDAO.substances_by_visitor(visitorno);
+    return substancesno;
   }
 
   @Override

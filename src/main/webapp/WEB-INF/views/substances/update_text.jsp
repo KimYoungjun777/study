@@ -105,6 +105,12 @@
       <input type='password' name='passwd' value='' required="required" 
                 class="form-control" style='width: 50%;'>
     </div>
+    
+    <div>
+    	<input type="radio" name="state" value="no"> 판매중 <br>
+      <input type="radio" name="state" value="ing"> 채팅거래중 <br>
+      <input type="radio" name="state" value="end"> 판매완료
+    </div>
        
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-info btn-sm">저장</button>

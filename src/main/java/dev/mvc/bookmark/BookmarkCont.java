@@ -1,5 +1,6 @@
 package dev.mvc.bookmark;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import dev.mvc.chatting.ChattingVO;
 import dev.mvc.grammer.GrammerProcInter;
 import dev.mvc.kind.KindProcInter;
 import dev.mvc.substances.SubstancesProcInter;
+import dev.mvc.substances.SubstancesVO;
 import dev.mvc.visitor.VisitorProcInter;
 
 @Controller
@@ -101,6 +103,38 @@ public class BookmarkCont {
     System.out.println(json);
     // JSON 문자열 반환
     return json.toString();
+  }
+  
+  /**
+   * 회원의 북마크 한 게시글
+   * @param session
+   * @return
+   */
+  @RequestMapping(value="/bookmark/substances_by_visitor.do", method = RequestMethod.GET)
+  public ModelAndView substances_by_visitor(HttpSession session, int visitorno) {
+    ModelAndView mav = new ModelAndView();
+    
+    if(this.visitorProc.isVisitor(session) == true) {
+      mav.setViewName("/bookmark/substances_by_visitor"); // /WEB-INF/views/cate/list_all.jsp
+      visitorno = (int)session.getAttribute("visitorno");
+      String name = (String)session.getAttribute("name");
+      mav.addObject("name", name);
+      BookmarkVO bookmarkVO = new BookmarkVO();
+      bookmarkVO.setVisitorno(visitorno);
+      ArrayList<Integer> substancesno = this.bookmarkProc.substances_by_visitor(visitorno);
+      mav.addObject("substancesno", substancesno);
+      ArrayList <SubstancesVO> list = new ArrayList<SubstancesVO>();
+      SubstancesVO substancesVO = new SubstancesVO();
+      for(int i=0; i<substancesno.size(); i++) {
+        substancesVO = this.substancesProc.read(substancesno.get(i));
+        list.add(substancesVO);
+      }
+      mav.addObject("list", list);
+      
+    } else {
+      mav.setViewName("/visitor/login_need");
+    }
+    return mav;
   }
   
   /**

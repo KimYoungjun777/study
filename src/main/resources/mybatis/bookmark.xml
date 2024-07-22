@@ -24,6 +24,13 @@
   		WHERE substancesno=#{substancesno}
   	</select>
   	
+  	<!-- 회원의 북마크 한 게시글 -->
+  	<select id="substances_by_visitor" resultType="int" parameterType="int">
+	  	SELECT substancesno
+			FROM bookmark
+			WHERE visitorno = #{visitorno}
+  	</select>
+  	
   	<!-- 좋아요 삭제 -->
   	<delete id="delete" parameterType="dev.mvc.bookmark.BookmarkVO">
   		DELETE FROM bookmark 

@@ -14,7 +14,6 @@
 <c:set var="address" value="${substancesVO.address }"/>
 <c:set var="file1" value="${substancesVO.file1 }"/>
 <c:set var="size1_label" value="${substancesVO.size1_label }"/>
-<c:set var="state" value="${substancesVO.state }"/>
 
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -26,24 +25,15 @@
 <link rel="shortcut icon" href="/css/images/shortcut.png" /> <%-- /static 기준 --%>
 <link href="/css/style.css" rel="Stylesheet" type="text/css"> <!-- /static 기준 -->
 
+
     
 </head> 
-<script type="text/javascript">
-function preventClick(state, url, event) {
-    if (state === 'end') {
-        event.preventDefault();
-        alert('거래 완료된 게시글입니다.');
-    }
-    else {
-        window.location.href = url;
-    }
-}
-</script>
+ 
 <body>
 <c:import url="/menu/top.do" />
  
   <DIV class='title_line'>
-    ${kindVO.title } 글 목록 
+    『${sessionScope.mname }님』 북마크한 게시글 목록 
     <c:if test="${param.word.length() > 0 }">
     > 『${param.word }』 검색 ${search_count} 건
     </c:if>
@@ -107,10 +97,8 @@ function preventClick(state, url, event) {
         <c:forEach var="substancesVO" items="${list }" varStatus="info">
           <c:set var="substancesno" value="${substancesVO.substancesno }" />
           <c:set var="thumb1" value="${substancesVO.thumb1 }" />
-          <c:set var="state" value="${substancesVO.state}" />
-          
     
-          <tr onclick="preventClick('${state}', './read.do?substancesno=${substancesno}&kindno=${param.kindno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page}', event)" style="cursor:pointer;">
+          <tr onclick="location.href='/substances/read.do?substancesno=${substancesno}&kindno=${param.kindno }&word=${param.word }&now_page=${param.now_page == null ? 1 : param.now_page }'" style="cursor:pointer;">
              <td class="td_bs" style="vertical-align: middle;">
              	${substancesVO.name}
              </td>
@@ -134,23 +122,14 @@ function preventClick(state, url, event) {
               <c:otherwise>
               ${substancesVO.substance }
               </c:otherwise>
-              </c:choose>               
+              </c:choose> 
             (${substancesVO.rdate.substring(0,16) })
-            <br>
-            <c:choose>
-	            <c:when test ="${substancesVO.state == 'ing'}">
-	            <span style="font-weight: lighter;">『이 게시글은 현재 거래 상대와 채팅중인 상태입니다.』</span>
-	            </c:when>
-	            <c:when test="${substancesVO.state == 'end'}">
-	            <span style="font-weight: lighter;">『이 게시글은 거래 완료된 게시글입니다.』</span>
-	            </c:when>
-            </c:choose>
             </td>
               <td class="td_bs" style="vertical-align: middle;">
               <c:if test="${sessionScope.visitorno == substancesVO.visitorno or sessionScope.grade == 1}">
                 <a href="./map.do?substancesno=${substancesno }&kindno=${param.kindno}" title="지도"><img src="/substances/images/map.jpg" class="icon"></a>
                 <a href="./youtube.do?substancesno=${substancesno }&kindno=${param.kindno}" title="유튜브"><img src="/substances/images/youtube.jpg" class="icon"></a>
-                <a href="./delete.do?substancesno=${substancesno }&kindno=${param.kindno}&now_page=${param.now_page == null ? 1 : param.now_page }" title="삭제"><img src="/substances/images/delete.jpg" class="icon"></a>
+                <a href="/substances/delete.do?substancesno=${substancesno }&kindno=${param.kindno}&now_page=${param.now_page == null ? 1 : param.now_page }" title="삭제"><img src="/substances/images/delete.jpg" class="icon"></a>
               </c:if>
               </td>
               

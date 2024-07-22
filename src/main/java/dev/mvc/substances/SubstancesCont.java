@@ -304,7 +304,7 @@ public class SubstancesCont {
 		
 		KindVO kindVO = kindProc.read(substancesVO.getKindno());
 	  mav.addObject("kindVO", kindVO);
-	    
+	  
 	  HashMap<String, Object> hashMap = new HashMap<String, Object>();
 	  hashMap.put("kindno", substancesVO.getKindno());
 	  hashMap.put("word", substancesVO.getWord());
@@ -712,6 +712,7 @@ public class SubstancesCont {
 	      // -------------------------------------------------------------------
 	      // 파일 삭제 종료
 	      // -------------------------------------------------------------------
+	     this.bookmarkProc.delete_by_substancesno(substancesVO.getSubstancesno());
 	     this.substancesProc.delete(substancesVO.getSubstancesno());
 	      
 	     int now_page = substancesVO.getNow_page();

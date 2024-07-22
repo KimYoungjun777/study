@@ -41,5 +41,10 @@ SELECT COUNT(*) as cnt
 FROM bookmark
 WHERE substancesno=3 AND visitorno=10;
 
+-- 2번 회원의 북마크 한 게시글
+SELECT substancesno
+FROM bookmark
+WHERE visitorno = 2;
+
 -- Delete
 DELETE FROM bookmark WHERE substancesno=2 and visitorno=3;
