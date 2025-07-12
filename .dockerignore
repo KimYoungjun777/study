@@ -1,0 +1,9 @@
+.git
+node_modules
+.gradle
+.idea
+.vscode
+*.log
+*.tmp
+build/
+!build/libs/study-1.0.war
