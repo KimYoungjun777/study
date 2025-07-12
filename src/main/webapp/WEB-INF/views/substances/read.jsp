@@ -162,18 +162,10 @@ function unlike() {
     <ul>
       <li class="li_none">
         <DIV style="width: 100%; word-break: break-all;">
-          <c:choose>
-            <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
-              <%-- /static/contents/storage/ --%>
-              <img src="/substances/storage/${file1saved }" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
-            </c:when>
-            <c:otherwise> <!-- 기본 이미지 출력 -->
-              <img src="/substances/images/none1.png" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
-            </c:otherwise>
-          </c:choose>
 
-          <span style="font-size: 1.5em; font-weight: bold;">${substancesVO.title }</span ><br><span style="font-size: 30px; text-align: right;">${substancesVO.name }</span>
-          <br><span style="font-size: 1em;">${rdate }</span>
+          <span style="font-size: 1.5em; font-weight: bold;">제목 : ${substancesVO.title }</span ><br>
+          <span style="font-size: 25px; text-align: right;">작성자 :  ${substancesVO.name }</span>
+          <br><span style="font-size: 1em;">${rdate }</span><br>
           <br>
           ${substance }
         </DIV>
@@ -195,26 +187,8 @@ function unlike() {
         </li>
       </c:if>
       
-      <li class="li_none" style="clear: both;">
-        <DIV style='text-decoration: none;'>
-          <br>
-          검색어(키워드): ${word }
-        </DIV>
-      </li>
-      
-      <li class="li_none" style="clear: both;">
-      	<div style='text-decoration: none;'>
-	       <label>거래 장소: </label>
-	       	${substancesVO.address }
-    		</div>   
-    	</li>
+    
     	
-    	<li class="li_none" style="clear: both;">
-      	<div style='text-decoration: none;'>
-	       <label>거래 가격: </label>
-	       	${substancesVO.price }원
-    		</div>   
-    	</li>
       <li class="li_none">
         <div>
           <c:if test="${file1.trim().length() > 0 }">

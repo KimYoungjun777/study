@@ -67,24 +67,12 @@
        <label>내용</label>
        <textarea name='substance' required="required" class="form-control" rows="12" style='width: 100%;'></textarea>
     </div>
-    <div>
-       <label>검색어</label>
-       <input type='text' name='word' value='야식, 배달' required="required" 
-                 class="form-control" style='width: 100%;'>
-    </div>   
+
     <div>
        <label>이미지</label>
        <input type='file' class="form-control" name='file1MF' id='file1MF' value='' placeholder="파일 선택">
-    </div>   
-    <div>
-       <label>거래 장소</label>
-       <input type='text' name='address' class="form-control form-sm" style='width: 30%;'>
-    </div>   
-    
-    <div>
-       <label>거래 가격</label>
-       <input type='text' name='price'  class="form-control form-sm" style='width: 30%;'>
-    </div>   
+    </div>    
+     
     <div>
        <label>패스워드</label>
        <input type='password' name='passwd' value='1234' required="required" 

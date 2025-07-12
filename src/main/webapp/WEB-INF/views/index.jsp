@@ -30,21 +30,7 @@ Date date = new Date();
 
 
   <DIV style='margin-left: 300px; text-align: center;'>
-  <!-- Fotorama data-ratio="100%/66%" -->
-  <div class="fotorama"
-         data-autoplay="5000"
-         data-nav="thumbs"
-         data-width="60%"
-         data-ratio="800/520"
-         style='margin-top: 50px;'>
-         
-      <img src="/jquery/fotorama/images/food1.jpg">
-	    <img src="/jquery/fotorama/images/food2.jpg">
-	    <img src="/jquery/fotorama/images/food3.jpg">
-	    <img src="/jquery/fotorama/images/food4.jpg">
-    
-        
-  </div>
+
   </DIV>
 
 <jsp:include page="./menu/bottom.jsp" flush="false" />

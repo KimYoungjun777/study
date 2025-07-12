@@ -42,7 +42,7 @@ SELECT kindno, title, cnt, rdate, seqno FROM KIND ORDER BY kindno ASC;
 UPDATE KIND SET title='분식', cnt=1 WHERE kindno=1;
 SELECT kindno, title, cnt, rdate FROM KIND ORDER BY kindno ASC;
 -- Delete
-DELETE FROM KIND WHERE kindno=1;
+DELETE FROM KIND WHERE kindno=4;
 SELECT kindno, title, cnt, rdate FROM KIND ORDER BY kindno ASC;
 
 -- 우선 순위 높임, 10등 -> 1등

@@ -1,4 +1,4 @@
-package dev.mvc.transaction;
+package dev.mvc.study;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

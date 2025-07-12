@@ -1,4 +1,4 @@
-package dev.mvc.transaction;
+package dev.mvc.study;
 
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;

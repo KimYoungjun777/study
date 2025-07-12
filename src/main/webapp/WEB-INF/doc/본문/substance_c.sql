@@ -3,7 +3,7 @@ DROP SEQUENCE substances_seq;
 
 CREATE TABLE substances(
         substancesno                            NUMBER(10)         NOT NULL         PRIMARY KEY,
-        grammerno                              NUMBER(10)     NOT NULL , -- FK
+        visitorno                              NUMBER(10)     NOT NULL , -- FK
         kindno                                NUMBER(10)         NOT NULL , -- FK
         title                                 VARCHAR2(200)         NOT NULL,
         substance                               CLOB                  NOT NULL,
@@ -26,13 +26,13 @@ CREATE TABLE substances(
         salecnt                               NUMBER(10)      DEFAULT 0 NULL,
         map                                   VARCHAR2(1000)            NULL,
         youtube                               VARCHAR2(1000)            NULL,
-        FOREIGN KEY (grammerno) REFERENCES grammer (grammerno),
+        FOREIGN KEY (visitorno) REFERENCES visitor (visitorno),
         FOREIGN KEY (kindno) REFERENCES kind (kindno)
 );
 
 COMMENT ON TABLE substances is '본문';
 COMMENT ON COLUMN substances.substancesno is '본문 번호';
-COMMENT ON COLUMN substances.grammerno is '개발자 번호';
+COMMENT ON COLUMN substances.visitorno is '회원 번호';
 COMMENT ON COLUMN substances.kindno is '종류 번호';
 COMMENT ON COLUMN substances.title is '제목';
 COMMENT ON COLUMN substances.substance is '내용';

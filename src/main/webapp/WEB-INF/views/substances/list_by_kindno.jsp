@@ -21,7 +21,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>종류 별 글 목록</title>
+<title>할 일 목록</title>
  
 <link rel="shortcut icon" href="/css/images/shortcut.png" /> <%-- /static 기준 --%>
 <link href="/css/style.css" rel="Stylesheet" type="text/css"> <!-- /static 기준 -->
@@ -43,7 +43,7 @@ function preventClick(state, url, event) {
 <c:import url="/menu/top.do" />
  
   <DIV class='title_line'>
-    ${kindVO.title } 글 목록 
+    ${kindVO.title } 할 일  목록 
     <c:if test="${param.word.length() > 0 }">
     > 『${param.word }』 검색 ${search_count} 건
     </c:if>
@@ -137,14 +137,7 @@ function preventClick(state, url, event) {
               </c:choose>               
             (${substancesVO.rdate.substring(0,16) })
             <br>
-            <c:choose>
-	            <c:when test ="${substancesVO.state == 'ing'}">
-	            <span style="font-weight: lighter;">『이 게시글은 현재 거래 상대와 채팅중인 상태입니다.』</span>
-	            </c:when>
-	            <c:when test="${substancesVO.state == 'end'}">
-	            <span style="font-weight: lighter;">『이 게시글은 거래 완료된 게시글입니다.』</span>
-	            </c:when>
-            </c:choose>
+
             </td>
               <td class="td_bs" style="vertical-align: middle;">
               <c:if test="${sessionScope.visitorno == substancesVO.visitorno or sessionScope.grade == 1}">
